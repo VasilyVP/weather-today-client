@@ -6,7 +6,7 @@ export enum systems {
 export const initialState = {
     authentication: {
         //auth: false,
-        username: null
+        userName: null
     },
     options: {
         system: systems.metric,

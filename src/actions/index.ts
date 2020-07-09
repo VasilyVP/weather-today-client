@@ -1,3 +1,6 @@
+import React from 'react';
+import { Dispatch } from 'redux'
+
 export enum actionTypes {
     changeSystem = 'change system',
     changePressure = 'change pressure',
