@@ -1,9 +1,0 @@
-import React from 'react';
-import Box from '@material-ui/core/Box';
-
-export default () => {
-
-    return (
-        <Box my={1}>Weather forecast</Box>
-    )
-}

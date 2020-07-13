@@ -1,6 +1,7 @@
-import { actionTypes as types } from '../actions';
-import { systems, initialState } from '../common/consts';
-import { actionsT } from '../actions/types';
+import { systems, initialState } from '../common/consts'
+import { actionTypes, actionsT } from '../actions/types'
+
+const types = actionTypes;
 
 export default function options(state = initialState.options, action: actionsT) {
     switch (action.type) {

@@ -4,9 +4,9 @@ import { useHistory } from 'react-router-dom'
 import Box from '@material-ui/core/Box'
 import { FormControl, FormGroup, FormControlLabel, Switch, IconButton } from '@material-ui/core'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
-import { systems } from '../common/consts'
 import { rootStateT } from '../store/types'
 import { changeSystem, changePressure, changeHumidity } from '../actions'
+import { systems } from '../common/consts'
 
 export default () => {
     const { system, pressure, humidity } = useSelector((state: rootStateT) => state.options);
