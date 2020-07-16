@@ -22,14 +22,17 @@ export const initialWeather = { //: weatherT
 
 export const initialState = {
     authentication: {
-        //auth: false,
-        userName: 'Vasily'
+        email: null,
+        firstName: null
     },
     options: {
         system: systems.metric,
         pressure: true,
         humidity: true
     },
-    serviceAvailable: true,
+    services: {
+        serviceAvailable: true,
+        gettingWeather: false,
+    },
     weather: initialWeather
 }

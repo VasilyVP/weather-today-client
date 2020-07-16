@@ -1,12 +1,17 @@
 import { initialState } from '../common/consts'
 import { weatherT } from '../common/types'
 
+export type userT = {
+    email: null | string,
+    firstName: null | string
+}
+
 export type rootStateT = {
-    authentication: {
-        //auth: boolean,
-        userName: null | string
-    },
+    authentication: userT,
     options: typeof initialState.options,
-    serviceAvailable: boolean,
+    services: {
+        serviceAvailable: boolean,
+        gettingWeather: boolean,
+    }
     weather: weatherT
 }

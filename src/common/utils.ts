@@ -1,5 +1,5 @@
 import { systems } from './consts'
-import { weatherRawChunk, weatherRawT, weatherProps } from './types'
+import { weatherRawChunk, weatherRawT, weatherProps, weatherT } from './types'
 
 function round10(value: number) {
     return Math.round(value * 10) / 10
@@ -36,13 +36,12 @@ export function alignWeatherForecast(forecast: Partial<weatherProps>[], system: 
  * days5Data output is array of [[today tail series], [8 series], [8 series], ...]
   */
 function splitRawData(dataList: weatherRawChunk[]) {
-    //if (dataList.length < 0) throw new Error('error');
-
     const nowData = dataList.shift();
 
     // taking rest of the day
-    const dayTailChunks = Math.floor((23 - new Date().getHours()) / 3);
-    const todayData = dayTailChunks === 0 ? nowData : dataList.splice(0, dayTailChunks);
+    let dayTailChunks = Math.floor((23 - new Date().getHours()) / 3);
+
+    const todayData = dayTailChunks === 0 ? [nowData] : dataList.splice(0, dayTailChunks);
 
     const days5Data = [todayData];
     for (let i = 0; i < 5; i++) {
@@ -100,15 +99,13 @@ function prepareData(data: weatherRawChunk) {
     }
 }
 
-export function parseRawWeatherData(data: weatherRawT) {
-    const city = data.city.name;
-
+export function parseRawWeatherData(data: weatherRawT): weatherT {
     if (!(data.list && data.list.length > 39)) throw new Error('Empty data list');
 
     const [nowData, days5Data] = splitRawData(data.list);
-
+    
+    const city = data.city.name;
     const forecast = prepareForecast(days5Data as weatherRawChunk[][]);
-
     const now = prepareData(nowData as weatherRawChunk);
 
     return { city, now, forecast };

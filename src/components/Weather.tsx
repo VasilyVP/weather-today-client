@@ -30,11 +30,11 @@ export default () => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const userName = useSelector((state: rootStateT) => state.authentication.userName);
+    const firstName = useSelector((state: rootStateT) => state.authentication.firstName);
     const system = useSelector((state: rootStateT) => state.options.system);
     const pressure = useSelector((state: rootStateT) => state.options.pressure);
     const humidity = useSelector((state: rootStateT) => state.options.humidity);
-    const serviceAvailable = useSelector((state: rootStateT) => state.serviceAvailable);
+    const serviceAvailable = useSelector((state: rootStateT) => state.services.serviceAvailable);
 
     const weatherState = useSelector((state: rootStateT) => state.weather);
 
@@ -46,8 +46,7 @@ export default () => {
     useEffect(() => {
         if (serviceAvailable && !city) dispatch(getWeather());
     }, []);
-
-    const showLoading = !city ? 'visible' : 'hidden';
+    
     const weatherDisplay = city ? 'flex' : 'none';
 
     return (
@@ -94,8 +93,7 @@ export default () => {
                     </Grid>
                 </Grid>
             </Box>
-            <Box visibility={showLoading} my={1}>Loading...</Box>
-            {userName && city ? <WeatherForecast /> : null}
+            {firstName && city ? <WeatherForecast /> : null}
         </>
     )
 }

@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default () => {
   const classes = useStyles();
-  const userName = useSelector((state: rootStateT) => state.authentication.userName);
+  const firstName = useSelector((state: rootStateT) => state.authentication.firstName);
 
   const [isOpenMenu, setMenu] = useState(false);
   const history = useHistory();
@@ -42,7 +42,7 @@ export default () => {
           </Hidden>
           <Hidden smDown>
             <Typography variant="h6">
-              Your weather today{userName ? `, ${userName}!` : null}
+              Your weather today{firstName ? `, ${firstName}!` : null}
             </Typography>
           </Hidden>
           <div className={classes.grow}></div>
@@ -56,7 +56,7 @@ export default () => {
             </Box>
             <Box mx={1}>
               {
-                userName ?
+                firstName ?
                   <Tooltip title="Sign out">
                     <IconButton color="inherit"><ExitToAppIcon /></IconButton>
                   </Tooltip>
@@ -66,7 +66,7 @@ export default () => {
           </Hidden>
         </Toolbar>
       </AppBar>
-      <DrawerC isOpen={isOpenMenu} toggleOpen={setMenu} userName={userName} />
+      <DrawerC isOpen={isOpenMenu} toggleOpen={setMenu} userName={firstName} />
     </>
   )
 };

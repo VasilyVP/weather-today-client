@@ -1,7 +1,9 @@
 import { Dispatch } from 'redux'
-import { parseRawWeatherData } from '../common/utils'
+//import { parseRawWeatherData } from '../common/utils'
 import { actionTypes } from './types'
 import { weatherT } from '../common/types'
+import { userT } from '../store/types'
+import { fetchParsedWeather } from '../middleware/api';
 
 const types = actionTypes;
 
@@ -29,6 +31,12 @@ export function changeServiceAvailable() {
     }
 }
 
+export function gettingWeather() {
+    return {
+        type: types.gettingWeather
+    }
+}
+
 export function gotWeather(weather: weatherT) {
     return {
         type: types.gotWeather,
@@ -38,20 +46,26 @@ export function gotWeather(weather: weatherT) {
 
 export function getWeather() {
     return (dispatch: Dispatch) => {
-        return fetch('http://localhost:8080/api/weather')
-            .then(res => res.json())
-            .then(data => {
-                try {
-                    const weather = parseRawWeatherData(data);
-                    dispatch(gotWeather(weather));
-                } catch (err) {
-                    //console.log(err);
-                    dispatch(changeServiceAvailable());
-                }
+        dispatch(gettingWeather());
+
+        return fetchParsedWeather()
+            .then(weather => {
+                dispatch(gotWeather(weather));
+                dispatch(gettingWeather());
             })
             .catch(err => {
-                //console.log(err);
+                dispatch(gettingWeather());
                 dispatch(changeServiceAvailable());
             });
+    }
+}
+
+export function signIn(user: userT) {
+    return {
+        type: types.signIn,
+        user: {
+            email: user.email,
+            firstName: user.firstName
+        }
     }
 }

@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Box } from '@material-ui/core';
 import { Button } from '@material-ui/core';
+import { rootStateT } from '../store/types'
 
 export default () => {
-    const [auth, setAuth] = useState(false);
+    const services = useSelector((state: rootStateT) => state.services);
+    const firstName = useSelector((state: rootStateT) => state.authentication.firstName);
     
     const history = useHistory();
 
@@ -13,7 +16,7 @@ export default () => {
 
     const content = (
         <>
-            <Box display="flex" justifyContent="center">
+            <Box display="flex" justifyContent="center" mt={7}>
                 <Button variant="contained" color="primary" onClick={handleSignIn}>Sign In</Button>
                 <Box alignSelf="end" mx={1}>
                     or
@@ -26,7 +29,7 @@ export default () => {
         </>
     );
     
-    if (auth) return null;
+    if (firstName || !services.serviceAvailable || services.gettingWeather) return null;
 
     return content;
 }

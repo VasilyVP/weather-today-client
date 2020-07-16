@@ -1,3 +1,7 @@
+//import rootReducer from '../reducers'
+
+//export type rootStateT = ReturnType<typeof rootReducer>
+
 export type weatherRawChunk = {
     dt: number;
     main: {
@@ -39,4 +43,9 @@ export type weatherT = {
     city: string | null,
     now: Partial<weatherProps>,
     forecast: Partial<weatherProps>[] | null
+}
+
+export type responseT = {
+    code: number,
+    msg: string
 }

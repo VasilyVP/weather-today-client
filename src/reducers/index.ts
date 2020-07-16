@@ -2,13 +2,13 @@ import { combineReducers } from 'redux'
 import options from './options'
 import authentication from './authentication'
 import weather from './weather'
-import { serviceAvailable } from './common'
+import { services } from './services'
 
 const rootReducer = combineReducers({
     authentication,
     options,
-    serviceAvailable,
-    weather
+    services,
+    weather,
 })
 
 export default rootReducer
