@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, Link } from 'react-router-dom'
-import Avatar from '@material-ui/core/Avatar';
-import { Button, IconButton } from '@material-ui/core';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { Button, IconButton, TextField, Avatar, Snackbar, CircularProgress } from '@material-ui/core'
+import MuiAlert from '@material-ui/lab/Alert'
+import { Container, Grid, Box, CssBaseline, Typography } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+//import { signIn } from '../../actions'
+import { trySignIn } from '../../actions'
+import { rootStateT } from '../../store/types'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -32,11 +31,68 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+let formData = {
+    email: '',
+    password: '',
+}
+const initialFormErrors = {
+    emailErr: false,
+}
+const initialErrorOpen = {
+    open: false,
+    msg: ''
+}
+
 export default function SignIn() {
+    const [formErrors, setFormErrors] = useState(initialFormErrors);
+    const [formOk, setFormOk] = useState(false);
+    const [errorOpen, setErrorOpen] = useState(initialErrorOpen);
+    const [spinnerShow, setSpinnerShow] = useState(false);
+
     const classes = useStyles();
     const history = useHistory();
+    const dispatch = useDispatch();
+    const email = useSelector((state: rootStateT) => state.authentication.email);
 
-    const handleBack = () => history.push('/');
+    if (email) history.replace('/');
+
+    function areFieldsOk(data: typeof formData) {
+        const fErrs = { ...initialFormErrors };
+
+        fErrs.emailErr = !data.email.match(/.+@.+\..+/);
+        setFormErrors(fErrs);
+
+        const result = !Object.values(fErrs).includes(true);
+        return result;
+    }
+
+    const handleBack = () => history.replace('/');
+
+    const handleAlertClose = (event?: React.SyntheticEvent, reason?: string) => {
+        if (reason === 'clickaway') return;
+        setErrorOpen(initialErrorOpen);
+    }
+    const handleChange = (prop: keyof typeof formData) => (event: React.ChangeEvent<HTMLInputElement>) => {
+        formData[prop] = event.target.value;
+    }
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+        const result = areFieldsOk(formData);
+
+        //setFormOk(result);
+
+        if (result) {
+            setSpinnerShow(true);
+            dispatch(trySignIn({
+                email: formData.email,
+                password: formData.password
+            }));
+        }
+    }
+
+    useEffect(() => {
+        return () => setSpinnerShow(false);
+    });
 
     return (
         <>
@@ -52,7 +108,7 @@ export default function SignIn() {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <form className={classes.form} noValidate>
+                    <form className={classes.form} noValidate onSubmit={handleSubmit}>
                         <TextField
                             variant="outlined"
                             margin="normal"
@@ -63,6 +119,8 @@ export default function SignIn() {
                             name="email"
                             autoComplete="email"
                             autoFocus
+                            error={formErrors.emailErr}
+                            onChange={handleChange('email')}
                         />
                         <TextField
                             variant="outlined"
@@ -74,6 +132,7 @@ export default function SignIn() {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            onChange={handleChange('password')}
                         />
                         <Button
                             type="submit"
@@ -82,7 +141,7 @@ export default function SignIn() {
                             color="primary"
                             className={classes.submit}
                         >
-                            Sign In
+                            {spinnerShow ? <CircularProgress color="secondary" /> : 'Sign In'}
                         </Button>
                         <Grid container>
                             <Grid item>
@@ -95,6 +154,11 @@ export default function SignIn() {
                         </Grid>
                     </form>
                 </div>
+                <Snackbar open={errorOpen.open} autoHideDuration={6000} onClose={handleAlertClose}>
+                    <MuiAlert severity="error" elevation={6} variant="filled" onClose={handleAlertClose}>
+                        {errorOpen.msg}
+                    </MuiAlert>
+                </Snackbar>
             </Container>
         </>
     );

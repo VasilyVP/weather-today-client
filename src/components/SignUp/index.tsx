@@ -1,21 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { useHistory, Link } from 'react-router-dom'
-import Avatar from '@material-ui/core/Avatar';
-import { Button, IconButton, Snackbar, CircularProgress } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { Button, IconButton, TextField, Avatar, CircularProgress } from '@material-ui/core'
+import { Container, Grid, Box, CssBaseline, Typography } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import { postNewUser } from '../../middleware/api';
-import { signIn } from '../../actions';
-import { responseT } from '../../common/types';
+import { postNewUser } from '../../middleware/api'
+import { setSignedIn, showNotification } from '../../actions'
+import { notificationTypes } from '../../common/consts'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -56,16 +49,13 @@ const initialErrorOpen = {
 export default function SignUp() {
     const [formErrors, setFormErrors] = useState(initialFormErrors);
     const [formOk, setFormOk] = useState(false);
-    const [errorOpen, setErrorOpen] = useState(initialErrorOpen);
     const [spinnerShow, setSpinnerShow] = useState(false);
 
     const classes = useStyles();
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const handleBack = () => history.push('/');
-
-    function testFields(data: typeof formData) {
+    function areFieldsOk(data: typeof formData) {
         const fErrs = { ...initialFormErrors };
 
         fErrs.firstNameErr = data.firstName.length < 1 ? true : false;
@@ -77,41 +67,39 @@ export default function SignUp() {
         return result;
     }
 
+    const handleBack = () => history.push('/');
+
     const handleChange = (prop: keyof typeof formData) => (event: React.ChangeEvent<HTMLInputElement>) => {
         formData[prop] = event.target.value;
     }
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        const result = testFields(formData);
+        const result = areFieldsOk(formData);
         setFormOk(result);
-    }
-    const handleAlertClose = (event?: React.SyntheticEvent, reason?: string) => {
-        if (reason === 'clickaway') return;
-        setErrorOpen(initialErrorOpen);
     }
 
     useEffect(() => {
         if (!formOk) return;
-        setSpinnerShow(true);
-
-        postNewUser(formData)
-            .then((res: responseT) => {
-                if (res.code === 200) {
-                    dispatch(signIn({
+        (async () => {
+            setSpinnerShow(true);
+            try {
+                const res = await postNewUser(formData);
+                if (res.code === 201) {
+                    dispatch(setSignedIn({
                         email: formData.email,
                         firstName: formData.firstName
                     }));
-                    history.push('/');
-                } else {
-                    setSpinnerShow(false);
-                    setErrorOpen({ open: true, msg: res.msg });
-                    setFormOk(false);
-                }
-            })
-            .catch(err => {
+                    history.replace('/');
+                } else throw new Error(res.msg);
+            } catch (err) {
                 setSpinnerShow(false);
-                setErrorOpen({ open: true, msg: err.message });
-            });
+                dispatch(showNotification({
+                    type: notificationTypes.error,
+                    msg: err.message
+                }));
+                setFormOk(false);
+            }
+        })();
     }, [formOk]);
 
     return (
@@ -203,12 +191,8 @@ export default function SignUp() {
                         </Grid>
                     </form>
                 </div>
-                <Snackbar open={errorOpen.open} autoHideDuration={6000} onClose={handleAlertClose}>
-                    <MuiAlert severity="error" elevation={6} variant="filled" onClose={handleAlertClose}>
-                        {errorOpen.msg}
-                    </MuiAlert>
-                </Snackbar>
+                
             </Container>
         </>
-    );
+    )
 }

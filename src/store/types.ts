@@ -1,5 +1,5 @@
 import { initialState } from '../common/consts'
-import { weatherT } from '../common/types'
+import { weatherT, notificationT } from '../common/types'
 
 export type userT = {
     email: null | string,
@@ -12,6 +12,7 @@ export type rootStateT = {
     services: {
         serviceAvailable: boolean,
         gettingWeather: boolean,
-    }
-    weather: weatherT
+        notification: notificationT,
+    },
+    weather: weatherT,
 }

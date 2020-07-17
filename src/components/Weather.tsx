@@ -46,53 +46,53 @@ export default () => {
     useEffect(() => {
         if (serviceAvailable && !city) dispatch(getWeather());
     }, []);
-    
-    const weatherDisplay = city ? 'flex' : 'none';
 
     return (
         <>
-            <Box display={weatherDisplay} my={3}>
-                <Grid container direction="column" alignItems="center" spacing={2}>
-                    <Grid item>
-                        <Typography variant="h6">{city}</Typography></Grid>
-                    <Grid item>
-                        <Typography variant="h3">
-                            {weather.temp}°{system === systems.metric ? ' C' : ' F'}
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <Typography variant="subtitle2">Feels {weather.feels}°</Typography>
-                    </Grid>
-                    <Grid item>
-                        <Paper className={classes.paper} elevation={2}>
-                            {weather.icon ?
-                                <img className={classes.img} src={`http://openweathermap.org/img/wn/${weather.icon}@2x.png`} />
+            {city ?
+                <Box my={3}>
+                    <Grid container direction="column" alignItems="center" spacing={2}>
+                        <Grid item>
+                            <Typography variant="h6">{city}</Typography></Grid>
+                        <Grid item>
+                            <Typography variant="h3">
+                                {weather.temp}°{system === systems.metric ? ' C' : ' F'}
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="subtitle2">Feels {weather.feels}°</Typography>
+                        </Grid>
+                        <Grid item>
+                            <Paper className={classes.paper} elevation={2}>
+                                {weather.icon ?
+                                    <img className={classes.img} src={`http://openweathermap.org/img/wn/${weather.icon}@2x.png`} />
+                                    : null
+                                }
+                            </Paper>
+                        </Grid>
+                        <Grid item container direction="row" justify="center" spacing={3} className={classes.grid}>
+                            {pressure ?
+                                <Grid item>
+                                    <Typography variant="subtitle2">
+                                        <Grid item>Pressure</Grid>
+                                        <Grid item >{weather.pressure} {system === systems.metric ? 'mm' : 'in'}Hg</Grid>
+                                    </Typography>
+                                </Grid>
                                 : null
                             }
-                        </Paper>
+                            {humidity ?
+                                <Grid item>
+                                    <Typography variant="subtitle2">
+                                        <Grid item>Humidity</Grid>
+                                        <Grid item>{weather.humidity} %</Grid>
+                                    </Typography>
+                                </Grid>
+                                : null
+                            }
+                        </Grid>
                     </Grid>
-                    <Grid item container direction="row" justify="center" spacing={3} className={classes.grid}>
-                        {pressure ?
-                            <Grid item>
-                                <Typography variant="subtitle2">
-                                    <Grid item>Pressure</Grid>
-                                    <Grid item >{weather.pressure} {system === systems.metric ? 'mm' : 'in'}Hg</Grid>
-                                </Typography>
-                            </Grid>
-                            : null
-                        }
-                        {humidity ?
-                            <Grid item>
-                                <Typography variant="subtitle2">
-                                    <Grid item>Humidity</Grid>
-                                    <Grid item>{weather.humidity} %</Grid>
-                                </Typography>
-                            </Grid>
-                            : null
-                        }
-                    </Grid>
-                </Grid>
-            </Box>
+                </Box>
+                : null}
             {firstName && city ? <WeatherForecast /> : null}
         </>
     )

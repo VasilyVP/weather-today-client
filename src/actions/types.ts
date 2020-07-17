@@ -1,4 +1,4 @@
-import { weatherT } from '../common/types'
+import { weatherT, notificationT } from '../common/types'
 import { userT } from '../store/types'
 
 export enum actionTypes {
@@ -8,11 +8,14 @@ export enum actionTypes {
     changeServiceAvailable = 'change service availability',
     gettingWeather = 'getting weather data',
     gotWeather = 'got weather data',
-    signIn = 'change auth state to signed in'
+    signIn = 'change auth state to signed in',
+    showNotification = 'show notification',
+    dropNotification = 'drop notification',
 }
 
 export type actionsT = {
     type: actionTypes,
     weather?: weatherT,
-    user: userT
+    user: userT,
+    notification: notificationT,
 }

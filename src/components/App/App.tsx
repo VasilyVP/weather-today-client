@@ -10,6 +10,7 @@ import MenuSection from '../MenuSection';
 import Weather from '../Weather';
 import Options from '../Options';
 import SignInUp from '../SignInUp';
+import Notification from '../Notification'
 import { rootStateT } from '../../store/types'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -49,6 +50,7 @@ function App() {
               </Backdrop>
             </Route>
           </Switch>
+          <Notification />
         </Container>
       </Router>
     </>

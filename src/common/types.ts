@@ -1,4 +1,5 @@
-//import rootReducer from '../reducers'
+import { userT } from '../store/types'
+import { notificationTypes } from './consts'
 
 //export type rootStateT = ReturnType<typeof rootReducer>
 
@@ -47,5 +48,13 @@ export type weatherT = {
 
 export type responseT = {
     code: number,
+    msg: string,
+    user?: userT
+}
+
+
+
+export type notificationT = {
+    type: notificationTypes
     msg: string
 }

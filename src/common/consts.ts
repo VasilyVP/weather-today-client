@@ -1,8 +1,11 @@
-import { weatherT } from './types'
-
 export enum systems {
     metric = 'metric',
     imperial = 'imperial'
+}
+
+export enum notificationTypes {
+    //undefined = 'undefined',
+    error = 'error',
 }
 
 const initialWeatherNow = {
@@ -14,10 +17,15 @@ const initialWeatherNow = {
     icon: null
 }
 
-export const initialWeather = { //: weatherT
+export const initialWeather = {
     city: null,
     now: initialWeatherNow,
     forecast: null
+}
+
+export const initialNotification = {
+    type: notificationTypes.error,
+    msg: '',
 }
 
 export const initialState = {
@@ -33,6 +41,7 @@ export const initialState = {
     services: {
         serviceAvailable: true,
         gettingWeather: false,
+        notification: initialNotification
     },
     weather: initialWeather
 }
