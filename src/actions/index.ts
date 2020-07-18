@@ -2,7 +2,7 @@ import { Dispatch } from 'redux'
 import { actionTypes } from './types'
 import { weatherT, notificationT } from '../common/types'
 import { userT } from '../store/types'
-import { fetchParsedWeather, postSignInInfo } from '../middleware/api';
+import { fetchParsedWeather, postSignInInfo, getSignOut } from '../middleware/api';
 import { notificationTypes } from '../common/consts';
 
 const types = actionTypes;
@@ -106,6 +106,27 @@ export function trySignIn(user: loginInfoT) {
             dispatch(showNotification({
                 type: notificationTypes.error,
                 msg: err.message
+            }));
+        }
+    }
+}
+
+export function setUnauthorized() {
+    return {
+        type: types.signOut
+    }
+}
+
+export function signOut() {
+    return async (dispatch: Dispatch) => {
+        try {
+            localStorage.clear();
+            await getSignOut();
+            dispatch(setUnauthorized());
+        } catch {
+            dispatch(showNotification({
+                type: notificationTypes.error,
+                msg: 'Service unavailable now'
             }));
         }
     }

@@ -34,28 +34,22 @@ export async function postNewUser(userData: userDataT): Promise<responseT> {
 }
 
 export async function postSignInInfo(userData: Partial<userDataT>) {
-    const res = await fetch('/api/signin', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userData)
-    });
+    try {
+        const res = await fetch('/api/signin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        });
 
-    if (res.status === 500) throw new Error('Internal server error');
-
-    const response = await res.json();
-    
-   /*
-    const response = {
-        code: 401,
-        msg: 'Incorrect login or password',
-        user: {
-            firstName: 'Vasily',
-            email: 'vasilyvp@list.ru'
-        }
+        return await res.json();
+    } catch {
+        throw new Error('Service is unavailable now');
     }
-*/
+}
 
-    return response;
+export async function getSignOut() {
+        const res = await fetch('/api/signout');
+        if (res.status !== 200) throw new Error('Internal server error');    
 }

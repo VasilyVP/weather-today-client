@@ -9,6 +9,7 @@ export enum actionTypes {
     gettingWeather = 'getting weather data',
     gotWeather = 'got weather data',
     signIn = 'change auth state to signed in',
+    signOut = 'change auth state to signed out',
     showNotification = 'show notification',
     dropNotification = 'drop notification',
 }

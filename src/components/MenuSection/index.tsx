@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom';
 import { makeStyles, Typography, Hidden, Box } from '@material-ui/core';
 import { AppBar, Toolbar, IconButton, Tooltip } from '@material-ui/core';
@@ -8,6 +8,7 @@ import TuneIcon from '@material-ui/icons/Tune';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import DrawerC from './DrawerC';
 import { rootStateT } from '../../store/types';
+import { signOut } from '../../actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,12 +25,18 @@ const useStyles = makeStyles((theme) => ({
 export default () => {
   const classes = useStyles();
   const firstName = useSelector((state: rootStateT) => state.authentication.firstName);
+  const dispatch = useDispatch();
 
   const [isOpenMenu, setMenu] = useState(false);
   const history = useHistory();
 
   const handleOptions = () => history.push('/options');
   const handleMenu = () => setMenu(state => !state);
+  
+  const handleSignOut = () => {
+    dispatch(signOut());
+    history.push('/');
+  }
 
   return (
     <>
@@ -58,7 +65,7 @@ export default () => {
               {
                 firstName ?
                   <Tooltip title="Sign out">
-                    <IconButton color="inherit"><ExitToAppIcon /></IconButton>
+                    <IconButton color="inherit" onClick={handleSignOut}><ExitToAppIcon /></IconButton>
                   </Tooltip>
                   : null
               }

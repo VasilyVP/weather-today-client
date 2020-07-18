@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers';
+import { initialState } from '../common/consts';
 
 const middlewares = [thunk];
 
@@ -9,6 +10,12 @@ if (process.env.NODE_ENV === 'development') {
     middlewares.push(logger);
 }
 
+const state = localStorage.getItem('state');
+
+console.log('State: ', state);
+
+const storedState = state ? JSON.parse(state) : initialState;
+
 export default () => {
-    return createStore(rootReducer, applyMiddleware(...middlewares))
+    return createStore(rootReducer, storedState, applyMiddleware(...middlewares))
 }

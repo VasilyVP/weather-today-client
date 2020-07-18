@@ -8,8 +8,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 //import { signIn } from '../../actions'
-import { trySignIn } from '../../actions'
-import { rootStateT } from '../../store/types'
+import { trySignIn } from '../actions'
+import { rootStateT } from '../store/types'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -45,14 +45,13 @@ const initialErrorOpen = {
 
 export default function SignIn() {
     const [formErrors, setFormErrors] = useState(initialFormErrors);
-    const [formOk, setFormOk] = useState(false);
-    const [errorOpen, setErrorOpen] = useState(initialErrorOpen);
     const [spinnerShow, setSpinnerShow] = useState(false);
 
     const classes = useStyles();
     const history = useHistory();
     const dispatch = useDispatch();
     const email = useSelector((state: rootStateT) => state.authentication.email);
+    const notification = useSelector((state: rootStateT) => Boolean(state.services.notification.msg))
 
     if (email) history.replace('/');
 
@@ -68,18 +67,12 @@ export default function SignIn() {
 
     const handleBack = () => history.replace('/');
 
-    const handleAlertClose = (event?: React.SyntheticEvent, reason?: string) => {
-        if (reason === 'clickaway') return;
-        setErrorOpen(initialErrorOpen);
-    }
     const handleChange = (prop: keyof typeof formData) => (event: React.ChangeEvent<HTMLInputElement>) => {
         formData[prop] = event.target.value;
     }
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         const result = areFieldsOk(formData);
-
-        //setFormOk(result);
 
         if (result) {
             setSpinnerShow(true);
@@ -91,7 +84,7 @@ export default function SignIn() {
     }
 
     useEffect(() => {
-        return () => setSpinnerShow(false);
+        if (notification) setSpinnerShow(false);
     });
 
     return (
@@ -154,11 +147,6 @@ export default function SignIn() {
                         </Grid>
                     </form>
                 </div>
-                <Snackbar open={errorOpen.open} autoHideDuration={6000} onClose={handleAlertClose}>
-                    <MuiAlert severity="error" elevation={6} variant="filled" onClose={handleAlertClose}>
-                        {errorOpen.msg}
-                    </MuiAlert>
-                </Snackbar>
             </Container>
         </>
     );

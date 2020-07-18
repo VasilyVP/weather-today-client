@@ -6,9 +6,9 @@ import { Container, Grid, Box, CssBaseline, Typography } from '@material-ui/core
 import { makeStyles } from '@material-ui/core/styles'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
-import { postNewUser } from '../../middleware/api'
-import { setSignedIn, showNotification } from '../../actions'
-import { notificationTypes } from '../../common/consts'
+import { postNewUser } from '../middleware/api'
+import { setSignedIn, showNotification } from '../actions'
+import { notificationTypes } from '../common/consts'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -191,7 +191,6 @@ export default function SignUp() {
                         </Grid>
                     </form>
                 </div>
-                
             </Container>
         </>
     )

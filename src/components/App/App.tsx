@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import SignInUp from '../SignInUp';
 import SignUp from '../SignUp';
 import SignIn from '../SignIn';
 //import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -9,7 +10,6 @@ import { Container, CssBaseline, Backdrop, CircularProgress } from '@material-ui
 import MenuSection from '../MenuSection';
 import Weather from '../Weather';
 import Options from '../Options';
-import SignInUp from '../SignInUp';
 import Notification from '../Notification'
 import { rootStateT } from '../../store/types'
 
@@ -26,8 +26,13 @@ const useStyles = makeStyles((theme: Theme) =>
 function App() {
   const serviceUnavailableOpen = !useSelector((state: rootStateT) => state.services.serviceAvailable);
   const gettingWeatherOpen = useSelector((state: rootStateT) => state.services.gettingWeather);
+  const state = useSelector((state: rootStateT) => state);
 
   const classes = useStyles();
+
+  useEffect(() => {
+    localStorage.setItem('state', JSON.stringify(state));
+  }, [state]);
 
   return (
     <>
