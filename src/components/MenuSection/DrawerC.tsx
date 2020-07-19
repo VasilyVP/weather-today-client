@@ -1,15 +1,17 @@
 import React from 'react';
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import TuneIcon from '@material-ui/icons/Tune';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { makeStyles } from '@material-ui/core/styles'
+import Drawer from '@material-ui/core/Drawer'
+import List from '@material-ui/core/List'
+import Divider from '@material-ui/core/Divider'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import TuneIcon from '@material-ui/icons/Tune'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import { DrawerCPropsT } from './types'
+import { signOut } from '../../actions'
 
 const useStyles = makeStyles({
     list: {
@@ -24,13 +26,10 @@ export default (props: DrawerCPropsT) => {
 
     const classes = useStyles();
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const handleOptions = () => {
         history.push('/options')
-    }
-
-    const handleSignOut = () => {
-
     }
 
     const handleDrawer = (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -41,6 +40,11 @@ export default (props: DrawerCPropsT) => {
         }
 
         toggleOpen(false);
+    }
+
+    const handleSignOut = () => {
+        dispatch(signOut());
+        history.push('/');
     }
 
     return (
@@ -62,7 +66,7 @@ export default (props: DrawerCPropsT) => {
                 <List>
                     <ListItem button onClick={handleSignOut}>
                         <ListItemIcon><ExitToAppIcon /></ListItemIcon>
-                        <ListItemText primary='Sign out' />
+                        <ListItemText primary='Sign out' onClick={handleSignOut} />
                     </ListItem>
                 </List>
             </div>

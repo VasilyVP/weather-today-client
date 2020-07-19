@@ -8,7 +8,7 @@ import { rootStateT } from '../store/types'
 import WeatherForecast from './WeatherForecast'
 //import { changeServiceAvailable } from '../actions'
 import { systems } from '../common/consts'
-import { getWeather } from '../actions';
+import { getWeather, changeServiceAvailable } from '../actions';
 import { alignWeatherNow } from '../common/utils'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -44,8 +44,9 @@ export default () => {
     const weather = alignWeatherNow(weatherState.now, system);
 
     useEffect(() => {
-        if (serviceAvailable && !city) dispatch(getWeather());
-    }, []);
+        if (!city) dispatch(getWeather()); //serviceAvailable && 
+        if (!serviceAvailable && city) dispatch(changeServiceAvailable());
+    }, [city]);
 
     return (
         <>

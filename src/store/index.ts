@@ -12,8 +12,6 @@ if (process.env.NODE_ENV === 'development') {
 
 const state = localStorage.getItem('state');
 
-console.log('State: ', state);
-
 const storedState = state ? JSON.parse(state) : initialState;
 
 export default () => {
