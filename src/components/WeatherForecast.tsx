@@ -8,13 +8,7 @@ import { alignWeatherForecast } from '../common/utils'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     grid: {
-        //padding: theme.spacing(1),
         textAlign: 'center'
-        // backgroundColor: '#e1f5fe'
-    },
-    paper: {
-        // width: '8rem'
-        backgroundColor: '#64ffda'
     },
     img: {
         width: '50px'
@@ -40,7 +34,7 @@ export default () => {
                     {date}
                 </Grid>
                 <Grid item>
-                    <Paper className={classes.paper} elevation={2}>
+                    <Paper elevation={2}>
                         {day.icon ? <img className={classes.img} src={`http://openweathermap.org/img/wn/${day.icon}@2x.png`} /> : null}
                     </Paper>
                 </Grid>

@@ -15,14 +15,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     grid: {
         padding: theme.spacing(1),
         textAlign: 'center'
-        // backgroundColor: '#e1f5fe'
-    },
-    paper: {
-        backgroundColor: '#64ffda'
     },
     img: {
-        width: '150px',
-        //height: 'auto'
+        width: '150px'
     }
 }))
 
@@ -64,7 +59,7 @@ export default () => {
                             <Typography variant="subtitle2">Feels {weather.feels}°</Typography>
                         </Grid>
                         <Grid item>
-                            <Paper className={classes.paper} elevation={2}>
+                            <Paper elevation={2}>
                                 {weather.icon ?
                                     <img className={classes.img} src={`http://openweathermap.org/img/wn/${weather.icon}@2x.png`} />
                                     : null

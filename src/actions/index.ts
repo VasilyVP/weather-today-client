@@ -2,7 +2,7 @@ import { Dispatch } from 'redux'
 import { actionTypes } from './types'
 import { weatherT, notificationT } from '../common/types'
 import { userT } from '../store/types'
-import { fetchParsedWeather, postSignInInfo, getSignOut } from '../middleware/api';
+import { fetchParsedWeather, postSignInInfo, getSignOut, deleteAccountAPI } from '../middleware/api';
 import { notificationTypes } from '../common/consts';
 
 const types = actionTypes;
@@ -127,6 +127,26 @@ export function signOut() {
             dispatch(showNotification({
                 type: notificationTypes.error,
                 msg: 'Service unavailable now'
+            }));
+        }
+    }
+}
+
+export function changeTheme() {
+    return {
+        type: types.changeTheme
+    }
+}
+
+export function deleteAccount() {
+    return async (dispatch: Dispatch<any>) => {
+        try {
+            await deleteAccountAPI();
+            dispatch(signOut());
+        } catch (err) {
+            dispatch(showNotification({
+                type: notificationTypes.error,
+                msg: err.message
             }));
         }
     }

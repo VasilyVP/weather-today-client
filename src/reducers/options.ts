@@ -1,4 +1,4 @@
-import { systems, initialState } from '../common/consts'
+import { systems, themes, initialState } from '../common/consts'
 import { actionTypes, actionsT } from '../actions/types'
 
 const types = actionTypes;
@@ -12,6 +12,9 @@ export default function options(state = initialState.options, action: actionsT) 
             return {...state, pressure: !state.pressure};
         case types.changeHumidity:
             return {...state, humidity: !state.humidity};
+        case types.changeTheme:
+            const theme = state.theme === themes.light ? themes.dark : themes.light;
+            return { ...state, theme: theme }
         default:
             return state;
     }

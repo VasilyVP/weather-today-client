@@ -55,3 +55,8 @@ export async function getSignOut() {
         const res = await fetch('/api/signout');
         if (res.status !== 200) throw new Error('Internal server error');    
 }
+
+export async function deleteAccountAPI() {
+    const res = await fetch('/api/deleteaccount');
+    if (res.status !== 200) throw new Error('Internal server error');
+}

@@ -8,6 +8,11 @@ export enum notificationTypes {
     error = 'error',
 }
 
+export enum themes {
+    light = 'light',
+    dark = 'dark'
+}
+
 const initialWeatherNow = {
     temp: null,
     feels: null,
@@ -36,7 +41,8 @@ export const initialState = {
     options: {
         system: systems.metric,
         pressure: true,
-        humidity: true
+        humidity: true,
+        theme: themes.light
     },
     services: {
         serviceAvailable: true,

@@ -6,6 +6,8 @@ export enum actionTypes {
     changePressure = 'change pressure',
     changeHumidity = 'change humidity',
     changeServiceAvailable = 'change service availability',
+    changeTheme = 'change the app theme',
+    deleteAccount = 'delete the user account of the app',
     gettingWeather = 'getting weather data',
     gotWeather = 'got weather data',
     signIn = 'change auth state to signed in',
