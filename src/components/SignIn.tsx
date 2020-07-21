@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, Link } from 'react-router-dom'
-import { Button, IconButton, TextField, Avatar, Snackbar, CircularProgress } from '@material-ui/core'
-import MuiAlert from '@material-ui/lab/Alert'
+import { Button, IconButton, TextField, Avatar, CircularProgress } from '@material-ui/core'
 import { Container, Grid, Box, CssBaseline, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
-//import { signIn } from '../../actions'
 import { trySignIn } from '../actions'
 import { rootStateT } from '../store/types'
 
@@ -37,10 +35,6 @@ let formData = {
 }
 const initialFormErrors = {
     emailErr: false,
-}
-const initialErrorOpen = {
-    open: false,
-    msg: ''
 }
 
 export default function SignIn() {
@@ -85,7 +79,7 @@ export default function SignIn() {
 
     useEffect(() => {
         if (notification) setSpinnerShow(false);
-    });
+    }, [notification]);
 
     return (
         <>

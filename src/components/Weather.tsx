@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Box, Grid, Typography } from '@material-ui/core'
-import { Paper, Divider } from '@material-ui/core'
+import { Paper } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { rootStateT } from '../store/types'
-//import { weatherProps } from '../common/types'
 import WeatherForecast from './WeatherForecast'
-//import { changeServiceAvailable } from '../actions'
 import { systems } from '../common/consts'
 import { getWeather, changeServiceAvailable } from '../actions';
 import { alignWeatherNow } from '../common/utils'
@@ -39,7 +37,7 @@ export default () => {
     const weather = alignWeatherNow(weatherState.now, system);
 
     useEffect(() => {
-        if (!city) dispatch(getWeather()); //serviceAvailable && 
+        if (!city) dispatch(getWeather());
         if (!serviceAvailable && city) dispatch(changeServiceAvailable());
     }, [city]);
 
@@ -61,7 +59,10 @@ export default () => {
                         <Grid item>
                             <Paper elevation={2}>
                                 {weather.icon ?
-                                    <img className={classes.img} src={`http://openweathermap.org/img/wn/${weather.icon}@2x.png`} />
+                                    <img
+                                        className={classes.img}
+                                        src={`http://openweathermap.org/img/wn/${weather.icon}@2x.png`}
+                                        alt="Weather" />
                                     : null
                                 }
                             </Paper>

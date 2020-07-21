@@ -21,13 +21,13 @@ export default () => {
     const forecast = useSelector((state: rootStateT) => state.weather.forecast as Partial<weatherProps>[]);
     const system = useSelector((state: rootStateT) => state.options.system);
 
-    const weatherForecast = alignWeatherForecast(forecast, system).map((day, i) => {        
+    const weatherForecast = alignWeatherForecast(forecast, system).map((day, i) => {
         const today = new Date();
         const date = new Date(today.setDate(today.getDate() + i)).toLocaleString([], {
             weekday: 'short',
             day: 'numeric'
         });
-        
+
         return (
             <Grid key={i} item className={classes.grid}>
                 <Grid item>
@@ -35,7 +35,11 @@ export default () => {
                 </Grid>
                 <Grid item>
                     <Paper elevation={2}>
-                        {day.icon ? <img className={classes.img} src={`http://openweathermap.org/img/wn/${day.icon}@2x.png`} /> : null}
+                        {day.icon ?
+                            <img className={classes.img}
+                                src={`http://openweathermap.org/img/wn/${day.icon}@2x.png`}
+                                alt="Weather forecast" />
+                            : null}
                     </Paper>
                 </Grid>
                 <Grid item>

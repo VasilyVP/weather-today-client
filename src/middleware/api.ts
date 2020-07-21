@@ -6,9 +6,6 @@ export async function fetchParsedWeather(): Promise<weatherT> {
 
     const res = await fetch('/api/weather');
     const data = await res.json();
-    
-    console.log(data);
-
     const weather = parseRawWeatherData(data);
     return weather;
 }

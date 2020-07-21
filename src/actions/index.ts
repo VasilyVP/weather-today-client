@@ -94,8 +94,6 @@ export function trySignIn(user: loginInfoT) {
     return async (dispatch: Dispatch) => {
         try {
             const res = await postSignInInfo(user);
-            console.log(res);
-
             if (res.code === 200) {
                 dispatch(setSignedIn(res.user));
             } else dispatch(showNotification({

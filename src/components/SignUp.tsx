@@ -41,10 +41,6 @@ const initialFormErrors = {
     emailErr: false,
     passwordErr: false
 }
-const initialErrorOpen = {
-    open: false,
-    msg: ''
-}
 
 export default function SignUp() {
     const [formErrors, setFormErrors] = useState(initialFormErrors);
@@ -100,7 +96,7 @@ export default function SignUp() {
                 setFormOk(false);
             }
         })();
-    }, [formOk]);
+    }, [formOk, dispatch, history]);
 
     return (
         <>
