@@ -5,7 +5,7 @@ export enum actionTypes {
     changeSystem = 'change system',
     changePressure = 'change pressure',
     changeHumidity = 'change humidity',
-    changeServiceAvailable = 'change service availability',
+    setServiceAvailable = 'set service availability',
     changeTheme = 'change the app theme',
     deleteAccount = 'delete the user account of the app',
     gettingWeather = 'getting weather data',
@@ -21,4 +21,5 @@ export type actionsT = {
     weather?: weatherT,
     user: userT,
     notification: notificationT,
+    serviceAvailable: boolean,
 }

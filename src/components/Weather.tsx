@@ -6,7 +6,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { rootStateT } from '../store/types'
 import WeatherForecast from './WeatherForecast'
 import { systems } from '../common/consts'
-import { getWeather, changeServiceAvailable } from '../actions';
+import { getWeather, setServiceAvailable } from '../actions';
 import { alignWeatherNow } from '../common/utils'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -38,7 +38,7 @@ export default () => {
 
     useEffect(() => {
         if (!city) dispatch(getWeather());
-        if (!serviceAvailable && city) dispatch(changeServiceAvailable());
+        if (!serviceAvailable && city) dispatch(setServiceAvailable(true));
     }, [city]);
 
     return (

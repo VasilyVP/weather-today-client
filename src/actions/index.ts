@@ -25,9 +25,10 @@ export function changeHumidity() {
     }
 }
 
-export function changeServiceAvailable() {
+export function setServiceAvailable(availability: boolean) {
     return {
-        type: types.changeServiceAvailable
+        type: types.setServiceAvailable,
+        serviceAvailable: availability
     }
 }
 
@@ -70,7 +71,7 @@ export function getWeather() {
             dispatch(gettingWeather());
         } catch {
             dispatch(gettingWeather());
-            dispatch(changeServiceAvailable());
+            dispatch(setServiceAvailable(false));
         }
     }
 }

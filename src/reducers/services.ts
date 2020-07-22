@@ -4,8 +4,8 @@ import { initialNotification } from '../common/consts'
 
 export function services(state = initialState.services, action: actionsT) {
     switch (action.type) {
-        case actionTypes.changeServiceAvailable:
-            return { ...state, serviceAvailable: !state.serviceAvailable };
+        case actionTypes.setServiceAvailable:
+            return { ...state, serviceAvailable: action.serviceAvailable };
         case actionTypes.gettingWeather:
             return { ...state, gettingWeather: !state.gettingWeather };
         case actionTypes.showNotification:
