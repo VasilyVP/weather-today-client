@@ -23,6 +23,7 @@ const initialWeatherNow = {
 }
 
 export const initialWeather = {
+    updated: null,
     city: null,
     now: initialWeatherNow,
     forecast: null

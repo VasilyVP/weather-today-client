@@ -70,7 +70,7 @@ function prepareForecast(days5Data: weatherRawChunk[][]) {
             (accum, current) => {
                 const currentIcon = current.weather[0].icon;
                 return Number(currentIcon.slice(0, 2)) > Number(accum.slice(0, 2)) ? currentIcon : accum;
-            }, '01d.png');
+            }, '01d');
 
         // changing night to day icon
         return icon.replace(/n/, 'd');
@@ -107,6 +107,7 @@ export function parseRawWeatherData(data: weatherRawT): weatherT {
     const city = data.city.name;
     const forecast = prepareForecast(days5Data as weatherRawChunk[][]);
     const now = prepareData(nowData as weatherRawChunk);
+    const updated = Date.now();
 
-    return { city, now, forecast };
+    return { updated, city, now, forecast };
 }

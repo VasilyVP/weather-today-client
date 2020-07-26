@@ -69,7 +69,7 @@ export function getWeather() {
 
             dispatch(gotWeather(weather));
             dispatch(gettingWeather());
-        } catch {
+        } catch (err) {
             dispatch(gettingWeather());
             dispatch(setServiceAvailable(false));
         }

@@ -41,6 +41,7 @@ export type weatherProps = {
 }
 
 export type weatherT = {
+    updated: Number | null,
     city: string | null,
     now: Partial<weatherProps>,
     forecast: Partial<weatherProps>[] | null

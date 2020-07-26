@@ -28,8 +28,10 @@ export default () => {
     const pressure = useSelector((state: rootStateT) => state.options.pressure);
     const humidity = useSelector((state: rootStateT) => state.options.humidity);
     const serviceAvailable = useSelector((state: rootStateT) => state.services.serviceAvailable);
-
     const weatherState = useSelector((state: rootStateT) => state.weather);
+    const updated = useSelector((state: rootStateT) => state.weather.updated);
+
+    const needUpdate = Date.now() - Number(updated) > 1800000 ? true : false; // every 30 minutes
 
     const city = weatherState.city;
 
@@ -37,9 +39,9 @@ export default () => {
     const weather = alignWeatherNow(weatherState.now, system);
 
     useEffect(() => {
-        if (!city) dispatch(getWeather());
+        if (needUpdate) dispatch(getWeather());
         if (!serviceAvailable && city) dispatch(setServiceAvailable(true));
-    }, [city]);
+    }, [needUpdate]);
 
     return (
         <>
