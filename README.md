@@ -1,7 +1,7 @@
 # weather-today-client 
-Front-end part of the example application: weather.vasily.dev
+It's front-end part of the example application: weather.vasily.dev
 
-Server part in the weather-today-server repository
+Server part is in the weather-today-server repository
 
 User story description:
 Application presents current weather for the user location and next 5 days weather forecast for registered users.
