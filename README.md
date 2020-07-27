@@ -1,5 +1,5 @@
 # weather-today-client 
-It's front-end part of the example application: weather.vasily.dev
+It's front-end part of the example application: https://weather.vasily.dev
 
 Server part is in the weather-today-server repository
 
