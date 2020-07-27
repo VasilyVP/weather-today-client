@@ -1,7 +1,22 @@
-# example-app-client
-Front-end part of the application
+# weather-today-client 
+Front-end part of the example application: weather.vasily.dev
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Server part in the weather-today-server repository
+
+User story description:
+Application presents current weather for the user location and next 5 days weather forecast for registered users.
+User can change theme, visibility options and metric or imperial unit system representation. Also delete his account information.
+
+Technical story:
+It's the single page app.
+App fetches 3h time-series by 5 days (40 records), parses data and builds current weather and 5 days forecast.
+Calculates imperial units from the basic metric system, if need.
+App have several routes like main weather page, settings, signIn and signUp. Stored state locally. Handles exceptions and possible errors by the server data interchange.
+
+There are next main technologies and approaches used:
+1) App bootstrapped with Create React App, TypeScript template used;
+2) React, redux, react-redux, react router, thunk;
+3) Material UI.
 
 ## Available Scripts
 
@@ -33,15 +48,3 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
