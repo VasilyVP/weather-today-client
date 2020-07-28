@@ -3,11 +3,11 @@ It's front-end part of the example application: https://weather.vasily.dev
 
 Server part is in the weather-today-server repository
 
-User story description:
+## User story description:
 Application presents current weather for the user location and next 5 days weather forecast for registered users.
-User can change theme, visibility options and metric or imperial unit system representation. Also delete his account information.
+User can change theme, visibility options and metric or imperial unit system representation. Also delete his stored account.
 
-Technical story:
+## Technical story:
 It's the single page app.
 App fetches 3h time-series by 5 days (40 records), parses data and builds current weather and 5 days forecast.
 Calculates imperial units from the basic metric system, if need.
