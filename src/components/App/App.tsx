@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import SignInUp from '../SignInUp';
 import SignUp from '../SignUp';
 import SignIn from '../SignIn';
+import Policy from '../Policy'
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Container, CssBaseline, Backdrop, CircularProgress } from '@material-ui/core';
@@ -62,6 +63,7 @@ function App() {
               <Route path="/options" component={Options} />
               <Route path="/signin" component={SignIn} />
               <Route path="/signup" component={SignUp} />
+              <Route path="/policy" component={Policy} />
               <Route path="/">
                 <Weather />
                 <SignInUp />
