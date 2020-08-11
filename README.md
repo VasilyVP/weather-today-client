@@ -11,7 +11,7 @@ User can change theme, visibility options and metric or imperial unit system rep
 It's the single page app.
 App fetches 3h time-series by 5 days (40 records), parses data and builds current weather and 5 days forecast.
 Calculates imperial units from the basic metric system, if need.
-App have several routes like main weather page, settings, signIn and signUp. Stored state locally. Handles exceptions and possible errors by the server data interchange.
+App have several routes like main weather page, settings, signIn and signUp. Stored state locally. Handles exceptions and possible errors by the server data interchange. Google authorization by the implicit grant flow.
 
 There are next main technologies and approaches used:
 1) App bootstrapped with Create React App, TypeScript template used;
