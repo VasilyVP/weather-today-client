@@ -2,8 +2,9 @@ import { Dispatch } from 'redux'
 import { actionTypes } from './types'
 import { weatherT, notificationT } from '../common/types'
 import { userT } from '../store/types'
-import { fetchParsedWeather, postSignInInfo, getSignOut, deleteAccountAPI } from '../middleware/api';
-import { notificationTypes } from '../common/consts';
+import { fetchParsedWeather, postSignInInfo, getSignOut, deleteAccountAPI } from '../middleware/api'
+import { notificationTypes } from '../common/consts'//, googleAuth 
+//import OAuth from 'client-oauth2'
 
 const types = actionTypes;
 

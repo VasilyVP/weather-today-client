@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, Link } from 'react-router-dom'
+import OAuth from 'client-oauth2'
+import { googleAuth } from '../common/consts'
 import { Button, IconButton, TextField, Avatar, CircularProgress } from '@material-ui/core'
 import { Container, Grid, Box, CssBaseline, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
-import { trySignIn } from '../actions'
+import { trySignIn, setSignedIn } from '../actions'
 import { rootStateT } from '../store/types'
+import googleLoginBtn from "../assets/imgs/btn_google_signin_dark_normal_web@2x.png"
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -26,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
+    },
+    gButton: {
+        width: 180,
     },
 }));
 
@@ -75,6 +81,24 @@ export default function SignIn() {
                 password: formData.password
             }));
         }
+    }
+    const handleGButtonClick = () => {
+        const auth = new OAuth({ ...googleAuth });
+
+        (window as any).oauth2Callback = async (uri: string) => {
+            const tokenSet = await auth.token.getToken(uri);
+
+            const addr = 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + tokenSet.accessToken;
+            const userInfoJSON = await fetch(addr);
+            const userInfo = await userInfoJSON.json();
+            
+            dispatch(setSignedIn({
+                email: userInfo.email,
+                firstName: userInfo.given_name
+            }));
+        };
+
+        window.open(auth.token.getUri());
     }
 
     useEffect(() => {
@@ -130,17 +154,25 @@ export default function SignIn() {
                         >
                             {spinnerShow ? <CircularProgress color="secondary" /> : 'Sign In'}
                         </Button>
-                        <Grid container>
-                            <Grid item>
-                                <Link to="/signup">
-                                    <Typography variant="body2">
-                                        {"Don't have an account? Sign Up"}
-                                    </Typography>
-                                </Link>
-                            </Grid>
-                        </Grid>
                     </form>
                 </div>
+                <Grid container justify="space-between" alignItems="center" spacing={2}>
+                    <Grid item>
+                        <Link to="/signup">
+                            <Typography variant="body2">
+                                {"Don't have an account? Sign Up"}
+                            </Typography>
+                        </Link>
+                    </Grid>
+                    <Grid item>
+                        {/*<a href="https://accounts.google.com" >*/}
+                        <Button className={classes.gButton} onClick={handleGButtonClick}>
+                            <img src={googleLoginBtn} alt="Login with Google" />
+                        </Button>
+
+                        {/*</a>*/}
+                    </Grid>
+                </Grid>
             </Container>
         </>
     );

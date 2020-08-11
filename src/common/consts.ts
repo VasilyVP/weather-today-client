@@ -52,3 +52,12 @@ export const initialState = {
     },
     weather: initialWeather
 }
+
+const redirectUri = 'https://weather.vasily.dev/oauthsignin';
+
+export const googleAuth = {
+    clientId: '934395031037-lakk45hf1gpr8fihvutsgihb5q1ma99a.apps.googleusercontent.com',
+    authorizationUri: 'https://accounts.google.com/o/oauth2/v2/auth',
+    redirectUri: redirectUri,
+    scopes: ['openid', 'email', 'profile']
+}

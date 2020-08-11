@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import Box from '@material-ui/core/Box'
 import { FormControl, FormGroup, FormControlLabel, Switch, Button, IconButton, Divider } from '@material-ui/core'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
@@ -71,6 +71,9 @@ export default () => {
                             : null}
                     </FormGroup>
                 </FormControl>
+            </Box>
+            <Box mt={3}>
+                <Link to='/policy'>Privacy policy</Link>
             </Box>
         </>
     )
