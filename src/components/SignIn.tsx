@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
     gButton: {
         width: 180,
     },
+    imgGButton: {
+        width: 160
+    }
 }));
 
 let formData = {
@@ -166,11 +169,11 @@ export default function SignIn() {
                     </Grid>
                     <Grid item>
                         {/*<a href="https://accounts.google.com" >*/}
-                        <Button className={classes.gButton} onClick={handleGButtonClick}>
-                            <img src={googleLoginBtn} alt="Login with Google" />
+                        <Button onClick={handleGButtonClick}>
+                            <img className={classes.imgGButton} src={googleLoginBtn} alt="Login with Google" />
                         </Button>
 
-                        {/*</a>*/}
+                        {/*</a> className={classes.gButton}  */}
                     </Grid>
                 </Grid>
             </Container>
