@@ -27,14 +27,11 @@ const useStyles = makeStyles((theme) => ({
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(1),
     },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
     gButton: {
-        width: 180,
+        paddingRight: 0,
     },
     imgGButton: {
-        width: 160
+        maxWidth: 190,
     }
 }));
 
@@ -94,7 +91,7 @@ export default function SignIn() {
             const addr = 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + tokenSet.accessToken;
             const userInfoJSON = await fetch(addr);
             const userInfo = await userInfoJSON.json();
-            
+
             dispatch(setSignedIn({
                 email: userInfo.email,
                 firstName: userInfo.given_name
@@ -148,34 +145,38 @@ export default function SignIn() {
                             autoComplete="current-password"
                             onChange={handleChange('password')}
                         />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                        >
-                            {spinnerShow ? <CircularProgress color="secondary" /> : 'Sign In'}
-                        </Button>
+                        <Grid container justify="space-between" alignItems="center" spacing={1}>
+                            <Grid item sm={6}>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    //className={classes.submit}
+                                >
+                                    {spinnerShow ? <CircularProgress color="secondary" /> : 'Sign In'}
+                                </Button>
+                            </Grid>
+                            <Grid item sm={6}>
+                                <Button
+                                    onClick={handleGButtonClick}
+                                    fullWidth
+                                    className={classes.gButton}
+                                >
+                                    <img
+                                        src={googleLoginBtn}
+                                        className={classes.imgGButton}
+                                        alt="Login with Google" />
+                                </Button>
+                            </Grid>
+                        </Grid>
                     </form>
                 </div>
-                <Grid container justify="space-between" alignItems="center" spacing={2}>
-                    <Grid item>
-                        <Link to="/signup">
-                            <Typography variant="body2">
-                                {"Don't have an account? Sign Up"}
-                            </Typography>
-                        </Link>
-                    </Grid>
-                    <Grid item>
-                        {/*<a href="https://accounts.google.com" >*/}
-                        <Button onClick={handleGButtonClick}>
-                            <img className={classes.imgGButton} src={googleLoginBtn} alt="Login with Google" />
-                        </Button>
-
-                        {/*</a> className={classes.gButton}  */}
-                    </Grid>
-                </Grid>
+                <Link to="/signup">
+                    <Typography variant="body2">
+                        {"Don't have an account? Sign Up"}
+                    </Typography>
+                </Link>
             </Container>
         </>
     );
