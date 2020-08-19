@@ -16,9 +16,9 @@ export default () => {
 
     const content = (
         <>
-            <Box display="flex" justifyContent="center" mt={7}>
+            <Box display="flex" justifyContent="center" alignItems="center" mt={6}>
                 <Button variant="contained" color="primary" onClick={handleSignIn}>Sign In</Button>
-                <Box alignSelf="end" mx={1}>
+                <Box  mx={1}>
                     or
                 </Box>
                 <Button variant="contained" color="primary" onClick={handleSignUp}> Sign Up</Button>
