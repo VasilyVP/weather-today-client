@@ -33,12 +33,14 @@ function App() {
       background: {
         paper: '#80d8ff'
       },
+      /*
       primary: {
         main: '#80d8ff'
       },
       secondary: {
         main: '#00b0ff'
       }
+      */
     }
   });
 
@@ -72,7 +74,7 @@ function App() {
                 </Backdrop>
                 <Backdrop className={classes.backdrop} open={serviceUnavailableOpen} >
                   Sorry, service is unavailable now
-              </Backdrop>
+                </Backdrop>
               </Route>
             </Switch>
             <Notification />

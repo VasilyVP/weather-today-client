@@ -9,15 +9,18 @@ import { systems } from '../common/consts'
 import { getWeather, setServiceAvailable } from '../actions';
 import { alignWeatherNow } from '../common/utils'
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
-    grid: {
-        padding: theme.spacing(1),
-        textAlign: 'center'
-    },
-    img: {
-        width: '150px'
-    }
-}))
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        grid: {
+            padding: theme.spacing(1),
+            textAlign: 'center',
+            width: '100%',
+        },
+        img: {
+            width: '150px'
+        },
+    })
+);
 
 export default () => {
     const classes = useStyles();
@@ -46,10 +49,11 @@ export default () => {
     return (
         <>
             {city ?
-                <Box my={3}>
+                <Box my={5} mx={0}>
                     <Grid container direction="column" alignItems="center" spacing={2}>
                         <Grid item>
-                            <Typography variant="h6">{city}</Typography></Grid>
+                            <Typography variant="h6">{city}</Typography>
+                        </Grid>
                         <Grid item>
                             <Typography variant="h3">
                                 {weather.temp}°{system === systems.metric ? ' C' : ' F'}

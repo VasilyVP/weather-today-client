@@ -26,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
     form: {
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
+    },
+    buttonsRow: {
+        marginTop: theme.spacing(1),
     },
     gButton: {
         paddingRight: 0,
@@ -145,19 +149,18 @@ export default function SignIn() {
                             autoComplete="current-password"
                             onChange={handleChange('password')}
                         />
-                        <Grid container justify="space-between" alignItems="center" spacing={1}>
-                            <Grid item sm={6}>
+                        <Grid container justify="space-between" alignItems="center" spacing={1} className={classes.buttonsRow}>
+                            <Grid item xs={12} sm={6}>
                                 <Button
                                     type="submit"
                                     fullWidth
                                     variant="contained"
                                     color="primary"
-                                    //className={classes.submit}
                                 >
                                     {spinnerShow ? <CircularProgress color="secondary" /> : 'Sign In'}
                                 </Button>
                             </Grid>
-                            <Grid item sm={6}>
+                            <Grid item xs={12} sm={6}>
                                 <Button
                                     onClick={handleGButtonClick}
                                     fullWidth
