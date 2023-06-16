@@ -18,6 +18,8 @@ There are next main technologies and approaches used:
 2) React, redux, react-redux, react router, thunk;
 3) Material UI.
 
+Build by Github actions
+
 ## Available Scripts
 
 In the project directory, you can run:
